@@ -40,7 +40,7 @@ mySql Load Operations involves
 
 SQL Queries are run and visually displayed on a browser using Streamlit
 
-#Project Guidelines
+# Project Guidelines
 
 1) Install pymongo, mysql connector, streamlit before running the project
 2) Update the Connection String Parameters in the CensusPipeLineProject.ipynb file and Queries.py
