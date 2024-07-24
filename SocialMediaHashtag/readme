@@ -1,1 +1,41 @@
+This README provides an overview, installation instructions, AWS setup details, and guidance on running the application.
+This project is a Streamlit application that allows users to compose and publish posts containing text and hashtags. 
+The posts are processed using AWS Lambda and stored in DynamoDB. 
+The application also identifies and displays trending hashtags in real-time.
 
+## Features
+
+- Compose and publish posts with text and hashtags
+- Store posts in DynamoDB via AWS Lambda
+- Analyze DynamoDB to identify trending hashtags
+- Display trending hashtags in real-time
+
+## Prerequisites
+
+- Python 3.7+
+- AWS account with access to Lambda and DynamoDB
+
+ AWS Setup
+
+1. **Create a DynamoDB table:**
+
+    - Table name: `your-dynamodb-table-name`
+    - Primary key: `post_id` (String)
+    - Sort key: `timestamp` (String)
+
+2. **Create  2 AWS Lambda functions:**
+
+    - **Post Processing Lambda:**
+      - Name: `your-lambda-function-name`
+      - Runtime: Python 3.x
+      - Handler: `lambda_function.lambda_handler`
+      - Code:
+
+     **Trending Hashtags Lambda:**
+      - Name: `your-trending-hashtags-lambda-function-name`
+      - Runtime: Python 3.x
+      - Handler: `lambda_function.lambda_handler`
+
+3. Download the python file "socialmediahashtag.py" and change the relevant dynamodb table and the lamda functions in the python code.
+
+4. Run the python file with the Streamlit path.
