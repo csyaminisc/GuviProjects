@@ -1,0 +1,43 @@
+import json
+import boto3
+import uuid
+from datetime import datetime
+
+# Initialize a DynamoDB client
+dynamodb = boto3.resource('dynamodb')
+
+# Define the table name
+TABLE_NAME = 'tablehashposts'
+
+def lambda_handler(event, context):
+    # Generate a UUID
+    item_id = int(uuid.uuid4())
+    
+    # Get the current timestamp
+    timestamp = datetime.utcnow().isoformat()
+    text = event["text"]
+    hashtags = event["hashtags"]
+
+    # Define the item to insert
+    item = {
+        'postid': item_id,
+        'timestamp': timestamp,
+        'post': text,
+        'hashtag' : hashtags
+        # Add additional attributes as needed
+    }
+    
+    # Get the DynamoDB table
+    table = dynamodb.Table(TABLE_NAME)
+    
+    # Insert the item into the table
+    response = table.put_item(Item=item)
+    
+    return {
+        'statusCode': 200,
+        'body': json.dumps({
+            'message': 'Item inserted successfully!',
+            'item_id': item_id,
+            'timestamp': timestamp
+        })
+    }
