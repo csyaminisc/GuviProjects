@@ -1,0 +1,23 @@
+from collections import Counter
+import boto3
+import json
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('tablehashposts')
+
+def lambda_handler(event, context):
+    response = table.scan()
+    items = response['Items']
+    
+    hashtags_counter = Counter()
+    for item in items:
+        hashtags_counter.update(item['hashtag'])
+    
+    trending_hashtags = hashtags_counter.most_common(10)
+    
+    # Store trending hashtags in a separate DynamoDB table or cache (optional)
+    
+    return {
+        'statusCode': 200,
+        'body': json.dumps(trending_hashtags)
+    }
